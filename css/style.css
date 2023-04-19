@@ -1,14 +1,20 @@
+/*
+    Overall, pretty well-written CSS, with only some minor mistakes/unwanted side effects.
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap');
 
 
 * {
     font-family: 'Edu NSW ACT Foundation', cursive;
+    /* This might have unexpected results, especially on phones. */
     font-size: 5vh;
     font-weight: 400;
+    /* This can have unexpected/unwnated side effects. */
     color: #021212;
+    /* Why do you specify `left: 0`? */
     left: 0;
-    margin: 0;
-    
+    margin: 0;   
 }
 
 body {
@@ -19,9 +25,9 @@ body {
 button {
     background-color: #DDD8C4;
     border-radius: 5px;
+    /* Consider using `border` property. */
     border-color: #69A297;
     border-style: solid;
-
 }
 
 label {
@@ -30,21 +36,27 @@ label {
 
 input {
     border-radius: 5px;
+    /* Consider using `border` property. */
     border-color: #69A297;
     border-style: solid;
     text-align: center;
     background-color: #DDD8C4;
-
 }
 
+/* `input` and `button` has the same properties. Consider using one selection for them: `button, input` */
+
+
 form {
+    /* Why relative positioning? */
     position: relative;
+    /* `<form>` is `display: block` by default. */
     display: block;
     margin: auto;
+    /* This can look bad on phone. */
     padding: 40vh 80vh;
 }
 
-
+/* Consider using same indentation as above. */
 #myAnimation {
   width: 100px;
   height: 100px;

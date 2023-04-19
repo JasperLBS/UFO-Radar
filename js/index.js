@@ -1,3 +1,9 @@
+// THIS FILE SHOULD BE IN THE ROOT OF YOUR PROJECT!
+
+// Overall:
+// Consider using `let` and `const` instead of `var`!
+// Be consistent in the use of semicolons! Either use them or not. Don't mix. 
+
 //express för att den behövs vid många steg.
 var express = require('express');
 var app = express();
@@ -8,6 +14,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 
 
+// Consider finding a more elegant and eas-to-read solution to this:
 //path så att pathing och URL fungerar.
 var path=require("path");
 global.appRoot=path.resolve(__dirname);
@@ -16,11 +23,12 @@ app.get("/", function(request,response){
     response.sendFile(newRoot+"/html/index.html");
 });
 
+
+// Consider using `express.static()` for this:
 //för att få css att fungera.
 app.get("/css/style.css", function(request,response){
     response.sendFile(newRoot+"/css/style.css")
 })
-
 app.get("/images/1F6F8.svg", function(request,response){
     response.sendFile(newRoot+"/images/1F6F8.svg")
 })
@@ -30,13 +38,16 @@ app.get("/images/1F6F8.svg", function(request,response){
 //Körs när användaren postar något.
 app.post("/", function(req, res) {
     //Skapar konstanter och variabler som används senare.
-    let cityData
-    let issData
+    let cityData // Consider renaming this, maybe? E.g. `userPosition`?
+    let issData // Consider same here? `issPosition`?
     const city= req.body.cityName;
     const apikey="50f65bedddf44d367e5c0b5a9c67038f"; 
     const units="metric";
     //API där koordinaterna för staden som användaren skrivit in hittas.
     const urlC = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units="+units+"&appid="+apikey+"#";
+
+    // Consider finding a more elegant and easy-to-read solution to this.
+    // Consider looking into `node-fetch` and `Promise`. 
     https.get(urlC, function(response){
         let result = "";
         response.on("data", function(data){ 
@@ -53,6 +64,7 @@ app.post("/", function(req, res) {
             //API där nuvarande koordinaterna på ISS hittas.
             const urlI = "https://api.wheretheiss.at/v1/satellites/25544";
             https.get(urlI, function(response){
+                // This is not safe. You need to use the same structure as above with `response.on("data")` and `response.on("end")`.
                 response.on("data", function(data){
                     //Parsar APIn så att koden kan arbeta med den.
                     issData = JSON.parse(data);
