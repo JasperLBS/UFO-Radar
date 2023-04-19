@@ -17,26 +17,34 @@
     <div id ="myAnimation"><img src="images\1F6F8.svg" alt="ufo"></div>
     </div>
 
-<script>
-//koden funkar endast om den är inline 🤷‍♂️
-//kod för animationen av ufot
-var id = null;
-function myMove() {
-  var elem = document.getElementById("myAnimation");   
-  var pos = 0;
-  clearInterval(id);
-  id = setInterval(frame, 10);
-  function frame() {
-    if (pos == 350) {
+    <!-- Consider finding out how to put it in an external script. -->
+    <!-- See comment in `index.js` about considering using `express.static()`. -->
+    <script>
+    //koden funkar endast om den är inline 🤷‍♂️
+    //kod för animationen av ufot
+    // Consider reading about `window.requestAnimationFrame()`
+    // Consider making the animation funnier/more creative.
+    // Consider using only CSS for the animation if it isn't too complex.
+    var id = null;
+    function myMove() {
+      var elem = document.getElementById("myAnimation");   
+      var pos = 0;
+
+      // Why this clear and set of an interval? It does nothing.
       clearInterval(id);
-    } else {
-      pos++; 
-      elem.style.top = pos + 'px'; 
-      elem.style.left = pos + 'px'; 
+      id = setInterval(frame, 10);
+      
+      function frame() {
+        if (pos == 350) {
+          clearInterval(id);
+        } else {
+          pos++; 
+          elem.style.top = pos + 'px'; 
+          elem.style.left = pos + 'px'; 
+        }
+      }
     }
-  }
-}
-</script>
+    </script>
 
 </body>
 </html>
