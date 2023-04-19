@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap');
+
+
+* {
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    font-size: 5vh;
+    font-weight: 400;
+    color: #021212;
+    left: 0;
+    margin: 0;
+    
+}
+
+body {
+    background-color: #DDD8C4;
+}
+
+
+button {
+    background-color: #DDD8C4;
+    border-radius: 5px;
+    border-color: #69A297;
+    border-style: solid;
+
+}
+
+label {
+    text-align: center;
+}
+
+input {
+    border-radius: 5px;
+    border-color: #69A297;
+    border-style: solid;
+    text-align: center;
+    background-color: #DDD8C4;
+
+}
+
+form {
+    position: relative;
+    display: block;
+    margin: auto;
+    padding: 40vh 80vh;
+}
+
+
+#myAnimation {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UFO Radar</title>
+    <script src="/js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <base href="/">
+</head>
+
+<body onload="myMove();">
+    <p>ITS ALIENS! &#128025; &#129430; &#128125;</p>
+    
+    <div id ="myContainer">
+    <div id ="myAnimation"><img src="images\1F6F8.svg" alt="ufo"></div>
+    </div>
+
+<script>
+//koden funkar endast om den är inline 🤷‍♂️
+//kod för animationen av ufot
+var id = null;
+function myMove() {
+  var elem = document.getElementById("myAnimation");   
+  var pos = 0;
+  clearInterval(id);
+  id = setInterval(frame, 10);
+  function frame() {
+    if (pos == 350) {
+      clearInterval(id);
+    } else {
+      pos++; 
+      elem.style.top = pos + 'px'; 
+      elem.style.left = pos + 'px'; 
+    }
+  }
+}
+</script>
+
+</body>
+</html>

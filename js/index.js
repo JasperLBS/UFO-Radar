@@ -7,13 +7,25 @@ const https = require("https");
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 
+
 //path så att pathing och URL fungerar.
 var path=require("path");
 global.appRoot=path.resolve(__dirname);
 var newRoot = appRoot.slice(0,appRoot.length-3);
 app.get("/", function(request,response){
-    response.sendFile(newRoot+"/index.html");
+    response.sendFile(newRoot+"/html/index.html");
 });
+
+//för att få css att fungera.
+app.get("/css/style.css", function(request,response){
+    response.sendFile(newRoot+"/css/style.css")
+})
+
+app.get("/images/1F6F8.svg", function(request,response){
+    response.sendFile(newRoot+"/images/1F6F8.svg")
+})
+
+
 
 //Körs när användaren postar något.
 app.post("/", function(req, res) {
@@ -21,10 +33,10 @@ app.post("/", function(req, res) {
     let cityData
     let issData
     const city= req.body.cityName;
-    const APIkey="50f65bedddf44d367e5c0b5a9c67038f"; 
+    const apikey="50f65bedddf44d367e5c0b5a9c67038f"; 
     const units="metric";
     //API där koordinaterna för staden som användaren skrivit in hittas.
-    const urlC = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units="+units+"&appid="+APIkey+"#";
+    const urlC = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units="+units+"&appid="+apikey+"#";
     https.get(urlC, function(response){
         let result = "";
         response.on("data", function(data){ 
@@ -53,18 +65,18 @@ app.post("/", function(req, res) {
                     //Sedan respondar beroende på hur nära de ligger varandra.
                     if (Math.abs(latC - latI) < 10 && 
                         Math.abs(lonC - lonI) < 10) {
-                        res.write("<p>It's just the ISS... &#128511; &#128534; &#128557;</p>")
+                        res.sendFile(newRoot+"/html/iss.html");
                     } else {
-                        res.write("<p>ITS ALIENS! &#128025; &#129430; &#128125;</p>")
+                        //lägg till kod som sparar nuvarande koordinaterna som "alien sightings"
+                        res.sendFile(newRoot+"/html/alien.html");
                     }
-                    res.send();
                 })
             })
         })
     })
 })
 
-//Startar servern
+//Startar servern med terminalen genom att skriva "node js\index.js".
 app.listen(3000, function(){
     console.log("Server started in port 3000");
     console.log(newRoot);
