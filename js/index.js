@@ -28,8 +28,6 @@ app.get("/", function(request,response){
     response.sendFile(appRoot+"/html/index.html");
 });
 
-
-// Consider using `express.static()` for this:
 //för att få css att fungera.
 app.get("/css/style.css", function(request,response){
     response.sendFile(appRoot+"/css/style.css");
@@ -38,11 +36,6 @@ app.get("/css/style.css", function(request,response){
 //för att få UFO bilden att fungera.
 app.get("/images/ufo.svg", function(request,response){
     response.sendFile(appRoot+"/images/ufo.svg");
-})
-
-//för att få marsvinet att fungera.
-app.get("/images/thecreature.gif", function(request,response){
-    response.sendFile(appRoot+"/thecreature.gif");
 })
 
 //körs när användaren postar något.
@@ -56,14 +49,13 @@ app.post("/", async function(req, res) {
     const resultC = await fetch(urlC)
     const cityData = await resultC.json()
 
-    console.dir(cityData)
-
     //kollar om det finns en stad som matchar med user input och ger user en error message om den inte gör det.
     if (cityData?.cod === "404") {
         console.log("error invalid input")
         res.sendFile(appRoot+"/html/indexerror.html");
     } else {
         //mer constanter som behövs
+        //lägger till 180 så man slipper ha negativa tal i räkningen
         const latC = (Math.round(cityData.coord.lat)+180);
         const lonC = (Math.round(cityData.coord.lon)+180);
         const urlI = "https://api.wheretheiss.at/v1/satellites/25544";
