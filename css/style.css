@@ -1,64 +1,60 @@
-/*
-    Overall, pretty well-written CSS, with only some minor mistakes/unwanted side effects.
-*/
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
-@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap');
-
+:root {
+    --text: #021212;
+    --background: #DDD8C4;
+    --misc: #69A297;
+    --font: Quicksand, cursive; font-weight: 300;
+}
 
 * {
-    font-family: 'Edu NSW ACT Foundation', cursive;
-    /* This might have unexpected results, especially on phones. */
-    font-size: 5vh;
-    font-weight: 400;
-    /* This can have unexpected/unwnated side effects. */
-    color: #021212;
-    /* Why do you specify `left: 0`? */
-    left: 0;
+    font-family: var(--font);
+    font-size: 25px;
+    color: var(--text);
     margin: 0;   
 }
 
 body {
-    background-color: #DDD8C4;
+    background-color: var(--background);
+    max-height: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
-
-button {
-    background-color: #DDD8C4;
+button, input {
+    background-color: var(--background);
+    border: 3px solid var(--misc); 
     border-radius: 5px;
-    /* Consider using `border` property. */
-    border-color: #69A297;
-    border-style: solid;
 }
-
-label {
-    text-align: center;
-}
-
-input {
-    border-radius: 5px;
-    /* Consider using `border` property. */
-    border-color: #69A297;
-    border-style: solid;
-    text-align: center;
-    background-color: #DDD8C4;
-}
-
-/* `input` and `button` has the same properties. Consider using one selection for them: `button, input` */
-
 
 form {
-    /* Why relative positioning? */
-    position: relative;
-    /* `<form>` is `display: block` by default. */
-    display: block;
+    position: absolute;
     margin: auto;
-    /* This can look bad on phone. */
-    padding: 40vh 80vh;
+    padding: 2vh;
 }
 
-/* Consider using same indentation as above. */
+p {
+    padding: 2vh;
+}
+
 #myAnimation {
-  width: 100px;
-  height: 100px;
-  position: absolute;
+    width: 30vh;
+    height: 30vh;
+    position: absolute;
+    animation-name: woosh;
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes woosh {
+    0%      {left: -40%;    top: 10%}
+    25%     {left: 20%;     top: 30%;}
+    50%     {left: 60%;     top: 60%;}
+    75%     {left: 80%;     top: 10%;}
+    100%    {left: 140%;    top: 30%;}
+}
+
+#error {
+    font-size: 25px;
+    color: var(--misc);
 }
