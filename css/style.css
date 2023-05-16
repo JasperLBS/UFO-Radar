@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
+/* "variabler" */
 :root {
     --text: #021212;
     --background: #DDD8C4;
@@ -37,6 +38,7 @@ p {
     padding: 2vh;
 }
 
+/* animation för UFO. */
 #myAnimation {
     width: 30vh;
     height: 30vh;
@@ -46,6 +48,7 @@ p {
     animation-fill-mode: both;
 }
 
+/* animationens keyframes. */
 @keyframes woosh {
     0%      {left: -40%;    top: 10%}
     25%     {left: 20%;     top: 30%;}

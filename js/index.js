@@ -8,10 +8,12 @@ import path from "path";
 const app = express()
 
 //databas setup och så att databasen finns.
+//"SQlite viewer" behövs för att kunna läsa den som en människa.
 const db = sqlite('sightings.db');
 db.prepare(`
     CREATE TABLE IF NOT EXISTS sightings (
         date    TIMESTAMP NOT NULL DEFAULT current_timestamp,
+        city    TEXT NOT NULL,
         lon     INT NOT NULL,
         lat     INT NOT NULL,
         isAlien BOOL NOT NULL
@@ -58,6 +60,7 @@ app.post("/", async function(req, res) {
         //lägger till 180 så man slipper ha negativa tal i räkningen
         const latC = (Math.round(cityData.coord.lat)+180);
         const lonC = (Math.round(cityData.coord.lon)+180);
+        const cityC = (cityData.name);
         const urlI = "https://api.wheretheiss.at/v1/satellites/25544";
         const resultI = await fetch(urlI);
         const issData = await resultI.json();
@@ -69,13 +72,13 @@ app.post("/", async function(req, res) {
         //Sedan respondar beroende på hur nära de ligger varandra.
         //Lagrar koordinater och tidspunkt på staden och om det är en alien sighting eller inte i en databas.
         //tar bort 180 så att databasen får rätt koordinater.
-        const dbStatement = db.prepare("INSERT INTO sightings (lat, lon, isAlien) VALUES (?, ?, ?)")
+        const dbStatement = db.prepare("INSERT INTO sightings (city, lat, lon, isAlien) VALUES (?, ?, ?, ?)")
         if (Math.abs(latC - latI) < 10 && 
             Math.abs(lonC - lonI) < 10) {
-                dbStatement.run(latC - 180, lonC - 180, 0);
+                dbStatement.run(cityC, latC - 180, lonC - 180, 0);
             res.sendFile(appRoot+"/html/iss.html");
         } else {
-            dbStatement.run(latC - 180, lonC - 180, 1);
+            dbStatement.run(cityC, latC - 180, lonC - 180, 1);
             res.sendFile(appRoot+"/html/alien.html");
         }
     }
